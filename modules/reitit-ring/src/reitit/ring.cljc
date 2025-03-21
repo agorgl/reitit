@@ -254,13 +254,14 @@
                         (response/content-type response (mime-type/ext-mime-type path))))
            path-or-index-response (fn [path uri]
                                     (or (response path)
-                                        (loop [[file & files] index-files]
-                                          (if file
-                                            (if-let [resp (response (join-paths path file))]
-                                              (if index-redirect?
-                                                (response/redirect (join-paths uri file))
-                                                resp)
-                                              (recur files))))))
+                                        (when (str/ends-with? uri "/")
+                                          (loop [[file & files] index-files]
+                                            (if file
+                                              (if-let [resp (response (join-paths path file))]
+                                                (if index-redirect?
+                                                  (response/redirect (join-paths uri file))
+                                                  resp)
+                                                (recur files)))))))
            handler (if path
                      (fn [request]
                        (let [uri (impl/url-decode (:uri request))]

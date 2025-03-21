@@ -526,7 +526,7 @@
 
                  (testing "index-files"
                    (let [response (app (request "/docs"))]
-                     (is (= (redirect "/docs/index.html") response)))
+                     (is (= 404 (:status response))))
                    (let [response (app (request "/docs/"))]
                      (is (= (redirect "/docs/index.html") response))))
 
@@ -567,7 +567,7 @@
 
                  (testing "index-files"
                    (let [response (app (request "/docs"))]
-                     (is (= (redirect "/docs/index.html") response)))
+                     (is (= 404 (:status response))))
                    (let [response (app (request "/docs/"))]
                      (is (= (redirect "/docs/index.html") response))))
 
@@ -609,7 +609,7 @@
 
                  (testing "index-files"
                    (let [response (app (request "/docs"))]
-                     (is (= (redirect "/docs/index.html") response)))
+                     (is (= 404 (:status response))))
                    (let [response (app (request "/docs/"))]
                      (is (= (redirect "/docs/index.html") response))))
 
@@ -652,7 +652,7 @@
 
                  (testing "index-files"
                    (let [response (app (request "/docs"))]
-                     (is (= (redirect "/docs/index.html") response)))
+                     (is (= 404 (:status response))))
                    (let [response (app (request "/docs/"))]
                      (is (= (redirect "/docs/index.html") response))))
 
@@ -681,7 +681,7 @@
 
                (testing "index-files"
                  (let [response (app (request "/docs"))]
-                   (is (= (redirect "/docs/index.html") response)))
+                   (is (= 404 (:status response))))
                  (let [response (app (request "/docs/"))]
                    (is (= (redirect "/docs/index.html") response))))))
 
@@ -693,8 +693,7 @@
 
                (testing "index-files"
                  (let [response (app (request "/docs"))]
-                   (is (= 200 (:status response)))
-                   (is (= "<h1>hello</h1>\n" (slurp (:body response)))))
+                   (is (= 404 (:status response))))
                  (let [response (app (request "/docs/"))]
                    (is (= 200 (:status response)))
                    (is (= "<h1>hello</h1>\n" (slurp (:body response)))))))))))))
